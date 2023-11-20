@@ -3,9 +3,9 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 
 
 
-### NOTE: where a naming convention was not specified throughout this project, I added my user name as a convenient naming convention for my docker images.
+# NOTE: where a naming convention was not specified throughout this project, I added my user name as a convenient naming convention for my docker images.
 
-## Task 1 - Install Docker and Docker-Compose:
+# Task 1 - Install Docker and Docker-Compose:
   `apt install docker`
   `apt install docker-compose`
 
@@ -13,20 +13,23 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 # ALL-DevOps
 `docker ps`
 `docker ps -a`
+#
 `docker stop 2a20189b00a5`
 `docker rm 2a20189b00a5`
+#
 `docker rmi hostname-color-webapp:latest`
 
-# If you still face issues, you might need to force the removal by adding the -f flag: 
+# If you still face issues, you might need to force the removal by adding the *-f flag: 
 
 `docker rmi -f hostname-color-webapp:latest`
 `docker run -p 20231:80 patrickdevops:latest`
+#
 `docker build --no-cache -t patrickdevops:latest -f Dockerfile .`
-
+#
 `python3 -m venv venv`
 `source venv/bin/activate`
 
-
+#
 `docker build -t hostname-color-webapp .`
 
 `docker run -p 80:80 hostname-color-webapp`
@@ -37,10 +40,10 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 `docker inspect --format '{{.Config.Image}}' $(docker ps --format='{{.ID}}')`
 
 
-
 ## craete ec2 instance
 `sudo apt-get update`
 `mkdir amc-project`
+#
 `cd amc-project`
 
 
@@ -56,18 +59,24 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 # If docker container permission denied
 `docker images`
 `sudo usermod -a -G docker $USER`
+#
 `sudo reboot`
 
 `git clone https://github.com/ejakah/devops-project.git`
+#
 
 `ls`
 
 `docker build -t amclab:dockerimage`
+#
 `docker run -d -p 8000:8000 amclab:dockerimage`
 
 `docker login`
-`ejakah`
-`password`
+#
+*`ejakah`*
+*`password`*
+
+#
 
 `docker image tag amclab:dockerimage ejakah/amclab:dockerimage`
 
@@ -87,6 +96,7 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 `docker push your-docker-hub-username/your-repository-name:your-tag`
 
 `docker push ejakah/amc-wintersemester:latest`
+#
 
 `docker image tag hostname-color-webapp:latest ejakah/amc-project:latest`
 
@@ -94,16 +104,21 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 
 
 
-# IF WE DECIDE NOT TO PUSH, BECAUSE WE HAVE AN EXISTING DOCKER IMAGE FROM PROXY, (Public docker hub register) THEN WE USE THE FOLLOWING
+# IF WE DECIDE NOT TO PUSH, BECAUSE WE HAVE AN EXISTING DOCKER IMAGE FROM PROXY, (*Public docker hub register*) THEN WE USE THE FOLLOWING
 
 `docker rmi amclab:dockerimage`
 `docker stop e05bf729681a`
+#
 `docker rm e05bf729681a`
 `docker rmi ejakah/amclab:dockerimage`
 
+#
 
 `docker pull docker.fslab.de/migbin2s/servmgmt-ws22/miniwhoami:latest`
 `docker images`
+
+#
+
 `docker ps`
 `docker run -d -p 80:80 docker.fslab.de/migbin2s/servmgmt-ws22/miniwhoami:latest`
 
@@ -111,6 +126,8 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 
 `curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64`
 `sudo install minikube-linux-amd64 /usr/local/bin/minikube`
+
+#
 
 `minikube start`
 
@@ -123,21 +140,25 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 `minikube status`
 
 `kubectl cluster-info`
-
+#
 `kubectl cluster-info dump`
 
 # INTERACT WITH CLUSTERS
 `kubectl get po -A`
 `minikube kubectl -- get po -A`
+#
 `alias kubectl="minikube kubectl --"`
 `minikube addons enable metrics-server`
+#
 `minikube dashboard`
-
 `kubectl config current-context`
+#
 `minikube stop`
 `minikube start`
+#
 `kubectl get namespaces`
 `kubectl get pods --namespace=kube-system`
+#
 `kubectl create namespace ejaka`
 `kubectl get namespaces`
 
@@ -223,15 +244,16 @@ spec:
 
 # EDIT THE HTTP ADDRESS BELOW WITH THE ONE IN DISPLACE 
 
-* curl -L http://192.168.49.2:32644
+`curl -L http://192.168.49.2:32644`
 
 `minikube service amc-lab -n ejaka`
+#
 
 `minikube dashboard`
 
 # LOGIN TO NGROK, GO TO THE WEBSITE COPT THE LINUX LINK ADDRESS TYPE WGET AND PASTE THE ADDRESS IN ORDER TO DOWNLOAD AND UNZIP THE FILE 
 
-* wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+`wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz`
 
 `tar -xvzf ngrok-v3-stable-linux-amd64.tgz` 
 
