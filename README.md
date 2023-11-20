@@ -1,5 +1,6 @@
 # All-DevOps-WITH-MICROSERVICES
-Project Title: Implementation of a Cloud-Based Web Application Deployment Strategy on Amazon Web Services (AWS) Utilizing Virtual Private Cloud (VPC), GitHub Version Control, Docker Containerization, Kubernetes Orchestration, and Ngrok Tunneling with Kubernetes Load Balancing.
+
+* Project Title: *Implementation of a Cloud-Based Web Application Deployment Strategy on Amazon Web Services (AWS) Utilizing Virtual Private Cloud (VPC), GitHub Version Control, Docker Containerization, Kubernetes Orchestration, and Ngrok Tunneling with Kubernetes Load Balancing.*
 
 
 
@@ -19,7 +20,7 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 #
 `docker rmi hostname-color-webapp:latest`
 
-# If you still face issues, you might need to force the removal by adding the *-f flag: 
+# If you still face issues, you might need to force the removal by adding the *-f flag:* 
 
 `docker rmi -f hostname-color-webapp:latest`
 `docker run -p 20231:80 patrickdevops:latest`
@@ -35,7 +36,7 @@ Project Title: Implementation of a Cloud-Based Web Application Deployment Strate
 `docker run -p 80:80 hostname-color-webapp`
 
 
-# Listing running Docker images with their tag (registry/namespace/name:tag) use the comman below
+# Listing running Docker images with their tag (*registry/namespace/name:tag*) use the command below
 
 `docker inspect --format '{{.Config.Image}}' $(docker ps --format='{{.ID}}')`
 
@@ -201,7 +202,8 @@ spec:
 
 # WE DELETE ONE OF THE PORT TO DETERMINE IF ANOTHER PORT WILL BE AUTOMATICALLY CREATED BASE ON AUTO HEALING
 
-# NOTE, EDIT THE NAME SPACE ID YOU WISH TO DELET e.g amclab-deployment-bf6f9b6fb-b8z84
+# NOTE, EDIT THE NAME SPACE ID YOU WISH TO DELET *e.g*
+* amclab-deployment-bf6f9b6fb-b8z84
 
 `kubectl delete pod amclab-deployment-bf6f9b6fb-b8z84 --namespace=ejaka`
 
@@ -259,7 +261,7 @@ spec:
 
 
 
-# Authenticate yourself with ngrok: Go to the ngrok page and you will see under option 2 <Connect your account>. Now copy the command and run your local machine.
+# Authenticate yourself with ngrok: Go to the ngrok page and you will see under *option 2 <Connect your account>.* Now copy the command and run your local machine.
 
 
 `sudo snap install ngrok`
