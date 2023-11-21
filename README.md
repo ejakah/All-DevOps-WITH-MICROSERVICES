@@ -238,6 +238,8 @@ spec:
 
 `kubectl apply -f service.yaml`
 
+# Check the status of your LoadBalancer service to get the external IP:
+
 `kubectl get svc -n ejaka`
 
 
@@ -276,10 +278,76 @@ spec:
 
 
 
+## Setting up Prometheus and Grafana for monitoring involves deploying both tools in your Kubernetes cluster. Prometheus will collect and store metrics, while Grafana will provide a visualization dashboard
 
 
+# Step 1: Install *Helm*
+
+`sudo snap install helm --classic`
+
+`helm version`
+
+# Step 2: Install *Prometheus and Grafana* using Helm:
+
+# Add Prometheus Helm chart repository
+`helm repo add prometheus-community https://prometheus-community.github.io/helm-charts`
+`helm repo update`
+
+# Ensure to run kubernates cluster IP before installing Prometheus
+`minikube start` 
+`minikube service amc-lab -n ejaka`
+
+# Install Prometheus
+`helm install my-prometheus prometheus-community/prometheus`
+
+# Get the Prometheus server URL by running these commands in the same shell:
+
+`export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=my-prometheus" -o jsonpath="{.items[0].metadata.name}")`
+
+#
+
+`kubectl --namespace default port-forward $POD_NAME 9090`
 
 
+# Get the Alertmanager URL by running these command
+
+`export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=my-prometheus" -o jsonpath="{.items[0].metadata.name}")`
+
+#
+
+`kubectl --namespace default port-forward $POD_NAME 9093`
+
+#
+`export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=prometheus,app.kubernetes.io/instance=my-prometheus" -o jsonpath="{.items[0].metadata.name}")`
+
+#
+
+`kubectl --namespace default port-forward $POD_NAME 9091`
+
+
+# Add Grafana Helm chart repository
+`helm repo add grafana https://grafana.github.io/helm-charts`
+`helm repo update`
+
+# Install Grafana
+`helm install my-grafana grafana/grafana`
+
+# 1. Get your 'admin' user password by running:
+`kubectl get secret --namespace default my-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo`
+
+# Coppy the encrpted key password from the display terminal
+* dlKZFFgAw9ZJWYmTYLOiMGiKiFKhg0rZSeuzSTU1
+
+# 2. Get the Grafana URL to visit by running these commands in the same shell:
+`export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=my-grafana" -o jsonpath="{.items[0].metadata.name}")`
+
+#
+`kubectl --namespace default port-forward $POD_NAME 3000`
+
+# 3. Login with the password from step 1 and the username: 
+* admin
+
+# After running these commands, you can visit * http://localhost:3000 in your web browser to access the Grafana dashboard and log in using the provided username and password.
 
 
 
