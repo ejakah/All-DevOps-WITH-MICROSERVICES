@@ -344,10 +344,35 @@ spec:
 #
 `kubectl --namespace default port-forward $POD_NAME 3000`
 
+# If the domain is denied then use the command below to forward the targeted pot to pot 80
+`kubectl port-forward service/my-grafana 3000:80 -n default`
+
 # 3. Login with the password from step 1 and the username: 
 * admin
 
 # After running these commands, you can visit * http://localhost:3000 in your web browser to access the Grafana dashboard and log in using the provided username and password.
+
+
+`minikube stop`
+`minikube start` 
+`minikube service amc-lab -n ejaka`
+
+# Check Prometheus Service:
+
+`kubectl get services -n default`
+
+# Check Prometheus Deployment:
+
+* Verify that the Prometheus deployment is running:
+
+`kubectl get deployments -n default`
+
+# Check Prometheus Pod Logs:
+
+* Examine the logs of the Prometheus pod to see if there are any errors:
+
+`kubectl logs <prometheus-pod-name> -n default`
+
 
 
 
