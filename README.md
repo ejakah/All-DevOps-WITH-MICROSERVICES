@@ -115,13 +115,13 @@
 
 #
 
-`docker pull docker.fslab.de/migbin2s/servmgmt-ws22/miniwhoami:latest`
+`docker pull ejakah/amc-wintersemester:latest`
 `docker images`
 
 #
 
 `docker ps`
-`docker run -d -p 80:80 docker.fslab.de/migbin2s/servmgmt-ws22/miniwhoami:latest`
+`docker run -d -p 80:80 ejakah/amc-wintersemester:latest`
 
 # KUBERNATES SETUP 1) START WITH MINIKUBE INSTALLATION BELOW
 
@@ -297,7 +297,49 @@ spec:
 `minikube start` 
 `minikube service amc-lab -n ejaka`
 
-# Install Prometheus
+
+
+
+# Step1 Install Prometheus
+
+
+
+
+
+# Create Namespace and Add Helm Charts Repo
+`kubectl create namespace kubernetes-monitoring`
+
+# Add Prometheus-community repo (copy the command below same way it is)
+`helm repo add Prometheus-community \
+https://prometheus-community.github.io/helm-charts`
+
+# To update the helm repo 
+ `helm repo update`
+ 
+# Deploying Helm Charts to Created Namespace
+
+`helm install monitoring prometheus-community/kube-prometheus-stack --namespace kubernetes-monitoring`
+
+# run the following command to confirm your Kube-Prometheus stack deployment.
+
+`kubectl get pods -n kubernetes-monitoring`
+
+
+# Accessing the Prometheus Instance and Viewing the Internal State Metrics
+
+`kubectl get svc -n kubernetes-monitoring`
+
+# Look for the service associated with Prometheus
+
+`kubectl get services -n kubernetes-monitoring`
+
+# Replace "YOUR_PROMETHEUS_SERVICE_NAME" with the actual name of the Prometheus service in your namespace. After running this command, you should be able to access the Prometheus web UI at http://localhost:9090 in your browser.
+
+`kubectl port-forward svc/YOUR_PROMETHEUS_SERVICE_NAME -n kubernetes-monitoring 9090`
+
+
+
+# Step2 Install Prometheus alternative to step1
 `helm install my-prometheus prometheus-community/prometheus`
 
 # Get the Prometheus server URL by running these commands in the same shell:
@@ -356,6 +398,25 @@ spec:
 `minikube stop`
 `minikube start` 
 `minikube service amc-lab -n ejaka`
+# to check if the KMS Tools is running and port forwarding
+`kubectl get svc -n kubernetes-monitoring | grep kube-state-metrics`
+`kubectl port-forward svc/monitoring-kube-state-metrics -n kubernetes-monitoring 8080`
+#
+`kubectl get svc -n kubernetes-monitoring`
+`kubectl port-forward svc/YOUR_PROMETHEUS_SERVICE_NAME -n kubernetes-monitoring 9090`
+
+
+# GRAFANA DASHBOARD
+`kubectl get secret -n kubernetes-monitoring monitoring-grafana -o yaml`
+# DECODE ADMIN-USER
+`echo 'YWRtaW4=' | base64 --decode`
+# DECODE PASSWORD 
+`echo 'cHJvbS1vcGVyYXRvcg==' | base64 --decode`
+
+* Username: admin
+* Password: prom-operator
+* These are the default credentials provided by the Helm chart for Grafana
+
 
 # Check Prometheus Service:
 
