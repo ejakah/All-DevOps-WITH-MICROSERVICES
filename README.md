@@ -68,7 +68,7 @@
 
 `ls`
 
-`docker build -t amclab:dockerimage`
+`docker build -t amclab:dockerimage .
 #
 `docker run -d -p 8000:8000 amclab:dockerimage`
 
