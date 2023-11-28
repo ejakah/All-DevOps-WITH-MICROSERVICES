@@ -31,7 +31,7 @@
 `source venv/bin/activate`
 
 #
-`docker build -t hostname-color-webapp .`
+`docker build -t hostname-color-webapp . `
 
 `docker run -p 80:80 hostname-color-webapp`
 
