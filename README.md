@@ -413,9 +413,13 @@ https://prometheus-community.github.io/helm-charts`
 # DECODE PASSWORD 
 `echo 'cHJvbS1vcGVyYXRvcg==' | base64 --decode`
 
+
+* These are the default credentials provided by the Helm chart for Grafana
 * Username: admin
 * Password: prom-operator
-* These are the default credentials provided by the Helm chart for Grafana
+  
+  `kubectl get svc -n kubernetes-monitoring`
+
   `kubectl port-forward svc/monitoring-grafana -n kubernetes-monitoring 3001:80`
   `kubectl port-forward svc/prometheus-operated -n kubernetes-monitoring 9090`
   
